@@ -1,0 +1,8 @@
+/target/
+/mybatisGenerator/
+.project
+.idea
+/.settings/
+/JamesFlinkProj/target/
+/JamesFlinkProj/.idea/
+/JamesFlinkProj/.project/
