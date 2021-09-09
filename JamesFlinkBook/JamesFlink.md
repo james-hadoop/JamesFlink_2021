@@ -27,7 +27,7 @@ Starting taskexecutor daemon on host JamesUbuntu18.
 
 
 ```shell
-(base) james@JamesUbuntu18:~/install/flink-1.13.2$ nc -l 9000
+(base) james@JamesUbuntu18:~/install/flink-1.13.2$ nc -l 9999
 hello flink
 hello james
 
@@ -338,27 +338,23 @@ https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime/0.12.0/i
 https://repo.maven.apache.org/maven2/org/apache/flink/flink-sql-connector-hive-2.3.6_2.11/1.13.2/flink-sql-connector-hive-2.3.6_2.11-1.13.2.jar
 ```
 
-```shell
-vi conf/sql-client-defaults.yaml
 
-catalogs: 
-  - name: my_catalog
-    type: iceberg
-    catalog-type: hadoop
-    warehouse: hdfs://localhost:9000/warehouse/
+启动 Flink 的 sql-client，需要将如下图的 jar 文件拷贝到 $FLINK_HOME/lib 目录下：
 
-```
-
+![flink sql client libs](images/flink_sql_client_libs.png)
 
 
 ```shell
 bin/sql-client.sh embedded \
--j ext/iceberg-flink-runtime-0.12.0.jarr \
+-j ext/iceberg-flink-runtime-0.12.0.jar \
 -j ext/flink-sql-connector-hive-2.3.6_2.11-1.13.2.jar \
 shell
 ```
 
+![flink_sql_client](images/flink_sql_client.png)
+
 ### 创建 Hive Catalog
+
 ```sql
 CREATE CATALOG hive_catalog WITH (
   'type'='iceberg',
@@ -366,13 +362,70 @@ CREATE CATALOG hive_catalog WITH (
   'uri'='thrift://localhost:9083',
   'clients'='5',
   'property-version'='1',
-  'warehouse'='hdfs://nn:8020/warehouse/path'
+  'warehouse'='hdfs://localhost:9000/warehouse/hive_catalog'
 );
 
 ```
 
+    - type: 只能使用iceberg,用于 iceberg 表格式。(必须)
+    - catalog-type: Iceberg 当前支持hive或hadoopcatalog 类型。(必须)
+    - uri: Hive metastore 的 thrift URI。 (必须)
+    - clients: Hive metastore 客户端池大小，默认值为 2。 (可选)
+    - property-version: 版本号来描述属性版本。此属性可用于在属性格式发生更改时进行向后兼容。当前的属性版本是 1。(可选)
+    - warehouse: Hive 仓库位置, 如果既不将 hive-conf-dir 设置为指定包含 hive-site.xml 配置文件的位置，也不将正确的 hive-site.xml 添加到类路径，则用户应指定此路径。
+    - hive-conf-dir: 包含 Hive-site.xml 配置文件的目录的路径，该配置文件将用于提供自定义的 Hive 配置值。 如果在创建 iceberg catalog 时同时设置 hive-conf-dir 和 warehouse，那么将使用 warehouse 值覆盖 < hive-conf-dir >/hive-site.xml (或者 classpath 中的 hive 配置文件)中的 hive.metastore.warehouse.dir 的值。
+    
+    
+### 创建 Hadoop Catalog
+
+```sql
+CREATE CATALOG hadoop_catalog WITH (
+  'type'='iceberg',
+  'catalog-type'='hadoop',
+  'property-version'='1',
+  'warehouse'='hdfs://localhost:9000/warehouse/hadoop_catalog'
+);
+
+```    
+
+
+```shell 
+vi conf/sql-client-defaults.yaml
+
+catalogs:
+  - name: hive_catalog
+    type: iceberg
+    catalog-type: hive
+    warehouse: hdfs://localhost:9000/warehouse/hive_catalog
+
+```
+
+
+
 
 ### 创建 Hive 数据表
+```sql
+Flink SQL> use catalog hive_catalog;
+
+Flink SQL> create database iceberg_db;
+
+Flink SQL> use iceberg_db;
+
+CREATE TABLE sample (id BIGINT COMMENT 'unique id', f_date STRING);
+
+
+```
+
+```shell 
+(base) james@JamesUbuntu18:~/temp$ hadoop fs -ls /warehouse/hive_catalog/iceberg_db.db/
+Found 1 items
+drwxr-xr-x   - james supergroup          0 2021-09-09 22:54 /warehouse/hive_catalog/iceberg_db.db/sample
+(base) james@JamesUbuntu18:~/temp$ 
+
+
+```
+
+
 
 ### 使用数据
 
@@ -381,7 +434,9 @@ CREATE CATALOG hive_catalog WITH (
 
 
 
+## 参考资料
+[Flink集成Iceberg简介](https://www.cnblogs.com/swordfall/p/14548574.html)
 
-
+[Flink结合Iceberg的一种实现方式笔记](https://zhengqiang.blog.csdn.net/article/details/112507474)
 
 
