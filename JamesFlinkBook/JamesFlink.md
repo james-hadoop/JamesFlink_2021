@@ -356,13 +356,13 @@ shell
 ### 创建 Hive Catalog
 
 ```sql
-CREATE CATALOG hive_catalog WITH (
+CREATE CATALOG hive_catalog11 WITH (
   'type'='iceberg',
   'catalog-type'='hive',
   'uri'='thrift://localhost:9083',
   'clients'='5',
   'property-version'='1',
-  'warehouse'='hdfs://localhost:9000/warehouse/hive_catalog'
+  'warehouse'='hdfs://localhost:9000/user/hive/warehouse/hive_catalog11'
 );
 
 ```
@@ -412,6 +412,11 @@ Flink SQL> create database iceberg_db;
 Flink SQL> use iceberg_db;
 
 CREATE TABLE sample (id BIGINT COMMENT 'unique id', f_date STRING);
+
+INSERT INTO sample VALUES (1, 'a');
+
+insert into sample (id,f_date) values (1, 'a');
+
 
 
 ```
