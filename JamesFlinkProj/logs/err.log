@@ -1,0 +1,91 @@
+2021-09-10 23:25:26,466 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-10 23:25:28,188 [main] [WARN ]WebMonitorUtils(82) Log file environment variable 'log.file' is not set.
+2021-09-10 23:25:28,189 [main] [WARN ]WebMonitorUtils(88) JobManager log files are unavailable in the web dashboard. Log file location not found in environment variable 'log.file' or configuration key 'web.log.path'.
+2021-09-10 23:25:28,540 [Source: Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) monitor (1/1)#0] [WARN ]MetricGroup(154) The operator name Source: Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) monitor exceeded the 80 characters length limit and was truncated.
+2021-09-10 23:25:28,574 [Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader -> Sink: Print to Std. Out (6/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-10 23:25:28,574 [Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader -> Sink: Print to Std. Out (1/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-10 23:25:28,574 [Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader -> Sink: Print to Std. Out (3/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-10 23:25:28,574 [Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader -> Sink: Print to Std. Out (5/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-10 23:25:28,574 [Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader -> Sink: Print to Std. Out (12/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-10 23:25:28,574 [Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader -> Sink: Print to Std. Out (8/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-10 23:25:28,574 [Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader -> Sink: Print to Std. Out (2/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-10 23:25:28,575 [Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader -> Sink: Print to Std. Out (11/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-10 23:25:28,576 [Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader -> Sink: Print to Std. Out (9/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-10 23:25:28,577 [Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader -> Sink: Print to Std. Out (4/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-10 23:25:28,578 [Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader -> Sink: Print to Std. Out (7/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-10 23:25:28,579 [Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader -> Sink: Print to Std. Out (10/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/warehouse/hadoop_catalog/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-11 00:06:17,632 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.default.compress does not exist
+2021-09-11 00:06:17,634 [main] [WARN ]HiveConf(4116) HiveConf of name hive.orc.cache.stripe.details.size does not exist
+2021-09-11 00:06:17,634 [main] [WARN ]HiveConf(4116) HiveConf of name hive.hwi.war.file does not exist
+2021-09-11 00:06:17,634 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.default.row.index.stride does not exist
+2021-09-11 00:06:17,634 [main] [WARN ]HiveConf(4116) HiveConf of name hive.outerjoin.supports.filters does not exist
+2021-09-11 00:06:17,635 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.compression.strategy does not exist
+2021-09-11 00:06:17,635 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.dictionary.key.size.threshold does not exist
+2021-09-11 00:06:17,635 [main] [WARN ]HiveConf(4116) HiveConf of name hive.orc.row.index.stride.dictionary.check does not exist
+2021-09-11 00:06:17,635 [main] [WARN ]HiveConf(4116) HiveConf of name hive.hwi.listen.host does not exist
+2021-09-11 00:06:17,635 [main] [WARN ]HiveConf(4116) HiveConf of name hive.support.sql11.reserved.keywords does not exist
+2021-09-11 00:06:17,635 [main] [WARN ]HiveConf(4116) HiveConf of name hive.hwi.listen.port does not exist
+2021-09-11 00:06:17,635 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.zerocopy does not exist
+2021-09-11 00:06:17,636 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.default.block.padding does not exist
+2021-09-11 00:06:17,636 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.block.padding.tolerance does not exist
+2021-09-11 00:06:17,636 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.default.stripe.size does not exist
+2021-09-11 00:06:17,636 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.default.block.size does not exist
+2021-09-11 00:06:17,636 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.memory.pool does not exist
+2021-09-11 00:06:17,637 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.skip.corrupt.data does not exist
+2021-09-11 00:06:17,637 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.default.buffer.size does not exist
+2021-09-11 00:06:17,637 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.encoding.strategy does not exist
+2021-09-11 00:06:17,701 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 00:24:14,327 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 00:27:19,769 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 00:27:48,428 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.default.compress does not exist
+2021-09-11 00:27:48,430 [main] [WARN ]HiveConf(4116) HiveConf of name hive.orc.cache.stripe.details.size does not exist
+2021-09-11 00:27:48,430 [main] [WARN ]HiveConf(4116) HiveConf of name hive.hwi.war.file does not exist
+2021-09-11 00:27:48,430 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.default.row.index.stride does not exist
+2021-09-11 00:27:48,430 [main] [WARN ]HiveConf(4116) HiveConf of name hive.outerjoin.supports.filters does not exist
+2021-09-11 00:27:48,430 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.compression.strategy does not exist
+2021-09-11 00:27:48,430 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.dictionary.key.size.threshold does not exist
+2021-09-11 00:27:48,430 [main] [WARN ]HiveConf(4116) HiveConf of name hive.orc.row.index.stride.dictionary.check does not exist
+2021-09-11 00:27:48,431 [main] [WARN ]HiveConf(4116) HiveConf of name hive.hwi.listen.host does not exist
+2021-09-11 00:27:48,431 [main] [WARN ]HiveConf(4116) HiveConf of name hive.support.sql11.reserved.keywords does not exist
+2021-09-11 00:27:48,431 [main] [WARN ]HiveConf(4116) HiveConf of name hive.hwi.listen.port does not exist
+2021-09-11 00:27:48,431 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.zerocopy does not exist
+2021-09-11 00:27:48,431 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.default.block.padding does not exist
+2021-09-11 00:27:48,431 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.block.padding.tolerance does not exist
+2021-09-11 00:27:48,431 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.default.stripe.size does not exist
+2021-09-11 00:27:48,432 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.default.block.size does not exist
+2021-09-11 00:27:48,432 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.memory.pool does not exist
+2021-09-11 00:27:48,432 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.skip.corrupt.data does not exist
+2021-09-11 00:27:48,433 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.default.buffer.size does not exist
+2021-09-11 00:27:48,433 [main] [WARN ]HiveConf(4116) HiveConf of name hive.exec.orc.encoding.strategy does not exist
+2021-09-11 00:27:48,500 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 00:30:15,407 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 00:33:31,443 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 00:35:00,129 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 00:43:42,514 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 00:44:01,868 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 00:50:04,453 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 00:50:29,692 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 00:51:03,589 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 01:48:14,365 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 01:51:45,384 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 01:52:14,543 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 01:52:32,917 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 01:53:35,671 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 01:54:55,363 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 01:56:35,711 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 01:56:49,870 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-11 01:56:51,659 [main] [WARN ]WebMonitorUtils(82) Log file environment variable 'log.file' is not set.
+2021-09-11 01:56:51,659 [main] [WARN ]WebMonitorUtils(88) JobManager log files are unavailable in the web dashboard. Log file location not found in environment variable 'log.file' or configuration key 'web.log.path'.
+2021-09-11 01:56:52,049 [Source: Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) monitor (1/1)#0] [WARN ]MetricGroup(154) The operator name Source: Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) monitor exceeded the 80 characters length limit and was truncated.
+2021-09-11 01:56:52,071 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (3/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-11 01:56:52,071 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (8/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-11 01:56:52,073 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (7/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-11 01:56:52,073 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (5/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-11 01:56:52,073 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (6/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-11 01:56:52,074 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (2/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-11 01:56:52,075 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (4/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-11 01:56:52,077 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (1/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-11 01:56:52,080 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (9/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-11 01:56:52,083 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (10/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-11 01:56:52,084 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (11/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-11 01:56:52,084 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (12/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.

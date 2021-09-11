@@ -14,14 +14,14 @@ public class FlinkTableWriteSample {
         env.enableCheckpointing(10000);
         StreamTableEnvironment tenv = StreamTableEnvironment.create(env);
 
-        tenv.executeSql("CREATE CATALOG hive_catalog2 WITH (\n" +
+        tenv.executeSql("CREATE CATALOG hive_catalog10 WITH (\n" +
                 "  'type'='iceberg',\n" +
-                "  'catalog-type'='hive'," +
-                //"  'hive-site-path'='hdfs://localhost/data/flink/conf/hive-site.xml'" +
-                "  'hive-site-path'='/home/james/install/hive/apache-hive-2.3.7-bin/conf/hive-site.xml'" +
+                "  'catalog-type'='hadoop'," +
+                "  'warehouse'='hdfs://localhost:9000/user/hive/warehouse/hive_catalog10'" +
+//                "  'hive-site-path'='/home/james/install/hive/apache-hive-2.3.7-bin/conf/hive-site.xml'" +
                 ")");
 
-        tenv.useCatalog("hive_catalog2");
+        tenv.useCatalog("hive_catalog10");
 
 
         tenv.executeSql("CREATE DATABASE iceberg_db");
@@ -36,11 +36,11 @@ public class FlinkTableWriteSample {
                 " 'fields.userid.kind'='random',\n" +
                 " 'fields.userid.min'='1',\n" +
                 " 'fields.userid.max'='100',\n" +
-                "'fields.f_random_str.length'='10'\n" +
+                " 'fields.f_random_str.length'='10'\n" +
                 ")");
 
-        tenv.executeSql(
-                "INSERT INTO hive_catalog2.iceberg_db.sample VALUES (1, 'a')");
+//        tenv.executeSql(
+//                "INSERT INTO hive_catalog10.iceberg_db.sample VALUES (10, 'a')");
     }
 
 
