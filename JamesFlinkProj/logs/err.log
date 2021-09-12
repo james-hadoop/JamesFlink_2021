@@ -89,3 +89,29 @@
 2021-09-11 01:56:52,083 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (10/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
 2021-09-11 01:56:52,084 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (11/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
 2021-09-11 01:56:52,084 [Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader -> Sink: Print to Std. Out (12/12)#0] [WARN ]MetricGroup(154) The operator name Iceberg table (hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample) reader exceeded the 80 characters length limit and was truncated.
+2021-09-12 21:04:18,222 [main] [ERROR]TableFactoryService(196) Could not load service provider for table factories.
+java.util.ServiceConfigurationError: org.apache.flink.table.factories.TableFactory: Provider org.apache.flink.table.factories.TableFactory could not be instantiated
+	at java.util.ServiceLoader.fail(ServiceLoader.java:232)
+	at java.util.ServiceLoader.access$100(ServiceLoader.java:185)
+	at java.util.ServiceLoader$LazyIterator.nextService(ServiceLoader.java:384)
+	at java.util.ServiceLoader$LazyIterator.next(ServiceLoader.java:404)
+	at java.util.ServiceLoader$1.next(ServiceLoader.java:480)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at org.apache.flink.table.factories.TableFactoryService.discoverFactories(TableFactoryService.java:193)
+	at org.apache.flink.table.factories.TableFactoryService.findAllInternal(TableFactoryService.java:163)
+	at org.apache.flink.table.factories.TableFactoryService.findAll(TableFactoryService.java:121)
+	at org.apache.flink.table.factories.ComponentFactoryService.find(ComponentFactoryService.java:50)
+	at org.apache.flink.table.api.bridge.java.internal.StreamTableEnvironmentImpl.lookupExecutor(StreamTableEnvironmentImpl.java:185)
+	at org.apache.flink.table.api.bridge.java.internal.StreamTableEnvironmentImpl.create(StreamTableEnvironmentImpl.java:156)
+	at org.apache.flink.table.api.bridge.java.StreamTableEnvironment.create(StreamTableEnvironment.java:128)
+	at org.apache.flink.table.api.bridge.java.StreamTableEnvironment.create(StreamTableEnvironment.java:98)
+	at com.james.flink.app.table.FlinkTableWriteSample2.main(FlinkTableWriteSample2.java:16)
+Caused by: java.lang.InstantiationException: org.apache.flink.table.factories.TableFactory
+	at java.lang.Class.newInstance(Class.java:427)
+	at java.util.ServiceLoader$LazyIterator.nextService(ServiceLoader.java:380)
+	... 12 more
+Caused by: java.lang.NoSuchMethodException: org.apache.flink.table.factories.TableFactory.<init>()
+	at java.lang.Class.getConstructor0(Class.java:3082)
+	at java.lang.Class.newInstance(Class.java:412)
+	... 13 more
+2021-09-12 21:39:56,956 [main] [WARN ]NativeCodeLoader(62) Unable to load native-hadoop library for your platform... using builtin-java classes where applicable

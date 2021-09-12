@@ -344,25 +344,19 @@ https://repo.maven.apache.org/maven2/org/apache/flink/flink-sql-connector-hive-2
 ![flink sql client libs](images/flink_sql_client_libs.png)
 
 
-```shell
-bin/sql-client.sh embedded \
--j ext/iceberg-flink-runtime-0.12.0.jar \
--j ext/flink-sql-connector-hive-2.3.6_2.11-1.13.2.jar \
-shell
-```
 
 ![flink_sql_client](images/flink_sql_client.png)
 
 ### 创建 Hive Catalog
 
-```sql
-CREATE CATALOG hive_catalog11 WITH (
+```shell
+CREATE CATALOG hive_catalog WITH (
   'type'='iceberg',
   'catalog-type'='hive',
   'uri'='thrift://localhost:9083',
   'clients'='5',
   'property-version'='1',
-  'warehouse'='hdfs://localhost:9000/user/hive/warehouse/hive_catalog11'
+  'warehouse'='hdfs://localhost:9000/user/hive/warehouse/iceberg/hive_catalog'
 );
 
 ```
@@ -378,7 +372,7 @@ CREATE CATALOG hive_catalog11 WITH (
     
 ### 创建 Hadoop Catalog
 
-```sql
+```shell
 CREATE CATALOG hadoop_catalog WITH (
   'type'='iceberg',
   'catalog-type'='hadoop',
@@ -404,7 +398,7 @@ catalogs:
 
 
 ### 创建 Hive 数据表
-```sql
+```shell
 Flink SQL> use catalog hive_catalog;
 
 Flink SQL> create database iceberg_db;
@@ -435,6 +429,82 @@ drwxr-xr-x   - james supergroup          0 2021-09-09 22:54 /warehouse/hive_cata
 ### 使用数据
 
 
+## Spark 集成 Iceberg
+```shell
+spark-shell --packages org.apache.iceberg:iceberg-spark3-runtime:0.12.0
+
+```
+
+```shell
+bin/spark-sql --packages org.apache.iceberg:iceberg-spark3-runtime:0.12.0\
+    --conf spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions \
+    --conf spark.sql.catalog.spark_catalog=org.apache.iceberg.spark.SparkSessionCatalog \
+    --conf spark.sql.catalog.spark_catalog.type=hive \
+    --conf spark.sql.catalog.local=org.apache.iceberg.spark.SparkCatalog \
+    --conf spark.sql.catalog.local.type=hadoop \
+    --conf spark.sql.catalog.local.warehouse=$PWD/warehouse
+
+```
+
+```shell
+CREATE TABLE local.db.table (id bigint, data string) USING iceberg
+
+
+INSERT INTO local.db.table VALUES (1, 'a'), (2, 'b'), (3, 'c');
+
+select * from local.db.table;
+
+
+DELETE FROM local.db.table
+WHERE data='b';
+
+select * from local.db.table;
+```
+
+
+```shell
+spark-sql> select * from local.db.table;
+1	a
+2	b
+3	c
+Time taken: 0.477 seconds, Fetched 3 row(s)
+
+spark-sql> DELETE FROM local.db.table
+         > WHERE data='b';
+Time taken: 0.819 seconds
+
+spark-sql> select * from local.db.table;
+1	a
+3	c
+Time taken: 0.105 seconds, Fetched 2 row(s)
+
+
+```
+
+
+```shell
+spark-sql> create table local.db.t_tgt select * from local.db.table;
+Time taken: 0.138 seconds
+
+spark-sql> select * from local.db.t_tgt;
+1	a
+3	c
+Time taken: 0.074 seconds, Fetched 2 row(s)
+
+spark-sql> MERGE INTO local.db.t_tgt t
+         > USING (select * from local.db.table) s
+         > ON t.id = s.id
+         > WHEN MATCHED AND s.data = 'c' THEN UPDATE SET t.data = 'm';
+Time taken: 0.787 seconds
+spark-sql> select * from local.db.t_tgt;
+1	a
+3	m
+Time taken: 0.052 seconds, Fetched 2 row(s)
+
+
+```
+
+
 
 
 
@@ -444,4 +514,6 @@ drwxr-xr-x   - james supergroup          0 2021-09-09 22:54 /warehouse/hive_cata
 
 [Flink结合Iceberg的一种实现方式笔记](https://zhengqiang.blog.csdn.net/article/details/112507474)
 
+[Spark Writes](http://iceberg.apache.org/spark-writes/#insert-into)
 
+[Spark Configuration](http://iceberg.apache.org/spark-configuration/#spark-configuration)

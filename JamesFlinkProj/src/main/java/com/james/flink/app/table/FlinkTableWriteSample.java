@@ -12,6 +12,7 @@ public class FlinkTableWriteSample {
                 StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
         env.enableCheckpointing(10000);
+
         StreamTableEnvironment tenv = StreamTableEnvironment.create(env);
 
         tenv.executeSql("CREATE CATALOG hive_catalog10 WITH (\n" +
