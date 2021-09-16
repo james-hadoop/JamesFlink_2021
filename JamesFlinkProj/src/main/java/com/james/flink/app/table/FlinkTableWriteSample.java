@@ -1,7 +1,14 @@
 package com.james.flink.app.table;
 
+import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
+import org.apache.flink.table.catalog.hive.HiveCatalog;
+import org.apache.flink.table.data.RowData;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.iceberg.flink.TableLoader;
+import org.apache.iceberg.flink.source.FlinkSource;
+
 
 /**
  * Created by James on 21-9-10 上午12:52
@@ -13,22 +20,20 @@ public class FlinkTableWriteSample {
         env.setParallelism(1);
         env.enableCheckpointing(10000);
 
-        StreamTableEnvironment tenv = StreamTableEnvironment.create(env);
+        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
 
-        tenv.executeSql("CREATE CATALOG hive_catalog10 WITH (\n" +
-                "  'type'='iceberg',\n" +
-                "  'catalog-type'='hadoop'," +
-                "  'warehouse'='hdfs://localhost:9000/user/hive/warehouse/hive_catalog10'" +
-//                "  'hive-site-path'='/home/james/install/hive/apache-hive-2.3.7-bin/conf/hive-site.xml'" +
-                ")");
+        String catalog = "hive_catalog";
+        String database = "iceberg_db1";
+        String hiveConfDir = "/home/james/install/hive-2.3.5/conf";
 
-        tenv.useCatalog("hive_catalog10");
+        HiveCatalog hiveCatalog = new HiveCatalog(catalog, database, hiveConfDir);
+        tableEnv.registerCatalog(catalog, hiveCatalog);
 
+        tableEnv.useCatalog("hive_catalog");
+        tableEnv.executeSql("CREATE DATABASE if not exists iceberg_db10");
+        tableEnv.useDatabase("iceberg_db10");
 
-        tenv.executeSql("CREATE DATABASE iceberg_db");
-        tenv.useDatabase("iceberg_db");
-
-        tenv.executeSql("CREATE TABLE sample (\n" +
+        tableEnv.executeSql("CREATE TABLE if not exists sample10 (\n" +
                 " userid int,\n" +
                 " f_random_str STRING\n" +
                 ") WITH (\n" +
@@ -40,8 +45,44 @@ public class FlinkTableWriteSample {
                 " 'fields.f_random_str.length'='10'\n" +
                 ")");
 
-//        tenv.executeSql(
-//                "INSERT INTO hive_catalog10.iceberg_db.sample VALUES (10, 'a')");
+
+        tableEnv.executeSql("CREATE CATALOG hadoop_catalog WITH (\n" +
+                "  'type'='iceberg',\n" +
+                "  'catalog-type'='hadoop',\n" +
+                "  'warehouse'='hdfs://localhost:9000/user/hive/warehouse/iceberg/iceberg_db10',\n" +
+                "  'property-version'='1'\n" +
+                ")");
+
+        // change catalog
+        tableEnv.useCatalog("hadoop_catalog");
+        tableEnv.executeSql("CREATE DATABASE if not exists iceberg_hadoop_db");
+        tableEnv.useDatabase("iceberg_hadoop_db");
+        // create iceberg result table
+        tableEnv.executeSql("drop table if exists hadoop_catalog.iceberg_hadoop_db.iceberg_002");
+        tableEnv.executeSql("CREATE TABLE  hadoop_catalog.iceberg_hadoop_db.iceberg_002 (\n" +
+                "    userid int,\n" +
+                "    f_random_str STRING\n" +
+                ")");
+
+//        tableEnv.executeSql(
+//                "INSERT INTO  hadoop_catalog.iceberg_hadoop_db.iceberg_002 " +
+//                        " SELECT userid, f_random_str FROM hive_catalog.iceberg_db10.sample10");
+
+        tableEnv.executeSql(
+                "SELECT userid, f_random_str FROM hive_catalog.iceberg_db10.sample10").print();
+
+//        Configuration hadoopConf = new Configuration();
+//
+//        TableLoader tableLoader = TableLoader.fromHadoopTable("hdfs://localhost:9000/user/hive/warehouse/iceberg/iceberg_hadoop_db/iceberg_002", hadoopConf);
+//
+//        DataStream<RowData> stream = FlinkSource.forRowData()
+//                .env(env)
+//                .tableLoader(tableLoader)
+//                .streaming(true)
+//                .build();
+//
+//// Print all records to stdout.
+//        stream.print();
     }
 
 

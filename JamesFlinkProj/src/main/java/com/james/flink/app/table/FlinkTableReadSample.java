@@ -16,7 +16,7 @@ public class FlinkTableReadSample {
 
         Configuration hadoopConf = new Configuration();
 
-        TableLoader tableLoader = TableLoader.fromHadoopTable("hdfs://localhost:9000/user/hive/warehouse/hive_catalog10/iceberg_db/sample", hadoopConf);
+        TableLoader tableLoader = TableLoader.fromHadoopTable("hdfs://localhost:9000/user/hive/warehouse/iceberg/hive_catalog/iceberg_db1.db/sample", hadoopConf);
 
         DataStream<RowData> stream = FlinkSource.forRowData()
                 .env(env)
