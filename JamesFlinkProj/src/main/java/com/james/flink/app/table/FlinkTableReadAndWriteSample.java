@@ -9,6 +9,7 @@ import org.apache.flink.table.catalog.hive.HiveCatalog;
  */
 public class FlinkTableReadAndWriteSample {
     public static void main(String[] args) {
+//        hadoop fs -ls /user/hive/warehouse/iceberg/hive_catalog/iceberg_db1.db
 
         EnvironmentSettings settings = EnvironmentSettings.newInstance().useBlinkPlanner().build();
         TableEnvironment tableEnv = TableEnvironment.create(settings);
