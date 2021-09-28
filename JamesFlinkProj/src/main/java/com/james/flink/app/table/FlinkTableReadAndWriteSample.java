@@ -65,12 +65,5 @@ public class FlinkTableReadAndWriteSample {
         System.out.println("--------------------------------");
 
         tableEnv.executeSql("INSERT INTO t_dst select * from t_src");
-
-//        try {
-//            tableEnv.executeSql("INSERT INTO t_dst select * from t_src");
-//        } catch (Exception ex) {
-//            System.out.println(ex.getMessage());
-//        } //try
-
     }
 }
