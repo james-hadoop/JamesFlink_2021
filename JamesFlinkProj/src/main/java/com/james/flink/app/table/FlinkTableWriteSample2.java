@@ -44,9 +44,33 @@ public class FlinkTableWriteSample2 {
             System.out.println(ex.getMessage());
         } //try
 
+        try {
+            tableEnv.executeSql("drop TABLE t_dst");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } //try
+
+        try {
+            tableEnv.executeSql("CREATE TABLE t_dst (\n" +
+                    " userid int,\n" +
+                    " f_random_str STRING\n" +
+                    ") WITH (\n" +
+                    " 'connector' = 'print'\n" +
+                    ")");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } //try
 
 
+        System.out.println("--------------------------------");
 
+        tableEnv.executeSql("INSERT INTO t_dst select * from t_src");
+
+//        try {
+//            tableEnv.executeSql("INSERT INTO t_dst select * from t_src");
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        } //try
 
     }
 }

@@ -377,7 +377,7 @@ CREATE CATALOG hadoop_catalog WITH (
   'type'='iceberg',
   'catalog-type'='hadoop',
   'property-version'='1',
-  'warehouse'='hdfs://localhost:9000/warehouse/hadoop_catalog'
+  'warehouse'='hdfs://localhost:9000/user/hive/warehouse/iceberg/hadoop_catalog'
 );
 
 ```    
@@ -387,10 +387,15 @@ CREATE CATALOG hadoop_catalog WITH (
 vi conf/sql-client-defaults.yaml
 
 catalogs:
-  - name: hive_catalog
+  - name: hadoop_catalog
     type: iceberg
-    catalog-type: hive
-    warehouse: hdfs://localhost:9000/warehouse/hive_catalog
+    catalog-type: hadoop
+    warehouse: hdfs://localhost:9000/user/hive/warehouse/iceberg/hadoop_catalog    
+
+```
+
+shell
+bin/sql-client.sh embedded -j ext/iceberg-flink-runtime-0.12.0.jar -j ext/flink-sql-connector-hive-2.3.6_2.11-1.13.2.jar shell
 
 ```
 
@@ -399,7 +404,7 @@ catalogs:
 
 ### 创建 Hive 数据表
 ```shell
-Flink SQL> use catalog hive_catalog;
+Flink SQL> use catalog hadoop_catalog;
 
 Flink SQL> create database iceberg_db;
 
@@ -407,7 +412,7 @@ Flink SQL> use iceberg_db;
 
 CREATE TABLE sample (id BIGINT COMMENT 'unique id', f_date STRING);
 
-INSERT INTO sample VALUES (1, 'a');
+INSERT INTO table sample VALUES (1, 'a');
 
 insert into sample (id,f_date) values (1, 'a');
 
