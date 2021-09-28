@@ -7,7 +7,7 @@ import org.apache.flink.table.catalog.hive.HiveCatalog;
 /**
  * Created by James on 21-9-10 上午12:52
  */
-public class FlinkTableWriteSample2 {
+public class FlinkTableReadAndWriteSample {
     public static void main(String[] args) {
 
         EnvironmentSettings settings = EnvironmentSettings.newInstance().useBlinkPlanner().build();
