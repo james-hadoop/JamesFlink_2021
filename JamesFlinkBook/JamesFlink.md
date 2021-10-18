@@ -406,15 +406,15 @@ bin/sql-client.sh embedded -j ext/iceberg-flink-runtime-0.12.0.jar -j ext/flink-
 ```shell
 Flink SQL> use catalog hadoop_catalog;
 
-Flink SQL> create database iceberg_db;
+Flink SQL> create database iceberg_db_from_flink;
 
-Flink SQL> use iceberg_db;
+Flink SQL> use iceberg_db_from_flink;
 
-CREATE TABLE sample (id BIGINT COMMENT 'unique id', f_date STRING);
+CREATE TABLE t_src (id BIGINT COMMENT 'unique id', f_date STRING);
 
-INSERT INTO table sample VALUES (1, 'a');
+INSERT INTO t_src VALUES (1, 'a');
 
-insert into sample (id,f_date) values (1, 'a');
+insert into t_src (id,f_date) values (1, 'a');
 
 
 
@@ -445,7 +445,8 @@ bin/spark-sql --packages org.apache.iceberg:iceberg-spark3-runtime:0.12.0\
     --conf spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions \
     --conf spark.sql.catalog.spark_catalog=org.apache.iceberg.spark.SparkSessionCatalog \
     --conf spark.sql.catalog.spark_catalog.type=hive \
-    --conf spark.sql.catalog.local=org.apache.iceberg.spark.SparkCatalog \
+    --conf spark.sql.catalog.local=
+    .apache.iceberg.spark.SparkCatalog \
     --conf spark.sql.catalog.local.type=hadoop \
     --conf spark.sql.catalog.local.warehouse=$PWD/warehouse
 
@@ -598,3 +599,7 @@ public class FlinkTableReadAndWriteSample {
 [Spark Writes](http://iceberg.apache.org/spark-writes/#insert-into)
 
 [Spark Configuration](http://iceberg.apache.org/spark-configuration/#spark-configuration)
+
+[flink-1.12.0 upsert-kafka connector demo 原创 Flink菜](https://blog.51cto.com/u_15057813/2621493)
+
+[使用了flink官方示例，尽然提交任务后报错了](https://blog.csdn.net/github_56967035/article/details/118250981)

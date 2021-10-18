@@ -5,7 +5,7 @@ import org.apache.flink.table.api.TableEnvironment;
 import org.apache.flink.table.catalog.hive.HiveCatalog;
 
 /**
- * Created by James on 21-9-10 上午12:52
+ * Created by James on 21-9-10 上午12:52iceberg_db
  */
 public class FlinkTableReadAndWriteSample {
     public static void main(String[] args) {
@@ -15,13 +15,17 @@ public class FlinkTableReadAndWriteSample {
         TableEnvironment tableEnv = TableEnvironment.create(settings);
 
         String catalog = "hive_catalog";
-        String database = "iceberg_db1";
+        String database = "iceberg_db_20211017_night";
+//        String hiveConfDir = "/home/james/install/apache-hive-3.1.2-bin/conf";
         String hiveConfDir = "/home/james/install/hive-2.3.5/conf";
 
-        HiveCatalog hive = new HiveCatalog(catalog, database, hiveConfDir);
+        HiveCatalog hive = new HiveCatalog(catalog, null, hiveConfDir);
         tableEnv.registerCatalog(catalog, hive);
         // 使用注册的catalog
         tableEnv.useCatalog(catalog);
+
+        tableEnv.useCatalog(catalog);
+        tableEnv.executeSql("CREATE DATABASE IF NOT EXISTS " + database);
         tableEnv.useDatabase(database);
 
         String[] tableList = tableEnv.listTables();

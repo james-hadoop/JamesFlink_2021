@@ -23,67 +23,39 @@ public class FlinkTableWriteSample {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
 
         String catalog = "hive_catalog";
-        String database = "iceberg_db1";
+        String database = "iceberg_db_20211017";
+//        String hiveConfDir = "/home/james/install/apache-hive-3.1.2-bin/conf";
         String hiveConfDir = "/home/james/install/hive-2.3.5/conf";
+        String srcTableName = "iceberg_table_src";
+        String dstTableName = "iceberg_table_dst";
 
-        HiveCatalog hiveCatalog = new HiveCatalog(catalog, database, hiveConfDir);
+        HiveCatalog hiveCatalog = new HiveCatalog(catalog, null, hiveConfDir);
         tableEnv.registerCatalog(catalog, hiveCatalog);
 
-        tableEnv.useCatalog("hive_catalog");
-        tableEnv.executeSql("CREATE DATABASE if not exists iceberg_db10");
-        tableEnv.useDatabase("iceberg_db10");
+        tableEnv.useCatalog(catalog);
+        tableEnv.executeSql("CREATE DATABASE if not exists " + database);
+        tableEnv.useDatabase(database);
 
-        tableEnv.executeSql("CREATE TABLE if not exists sample10 (\n" +
-                " userid int,\n" +
+        tableEnv.executeSql("CREATE TABLE if not exists " + srcTableName + " (\n" +
+                " user_id int,\n" +
                 " f_random_str STRING\n" +
                 ") WITH (\n" +
                 " 'connector' = 'datagen',\n" +
                 " 'rows-per-second'='100',\n" +
-                " 'fields.userid.kind'='random',\n" +
-                " 'fields.userid.min'='1',\n" +
-                " 'fields.userid.max'='100',\n" +
+                " 'fields.user_id.kind'='random',\n" +
+                " 'fields.user_id.min'='1',\n" +
+                " 'fields.user_id.max'='100',\n" +
                 " 'fields.f_random_str.length'='10'\n" +
                 ")");
 
 
-        tableEnv.executeSql("CREATE CATALOG hadoop_catalog WITH (\n" +
-                "  'type'='iceberg',\n" +
-                "  'catalog-type'='hadoop',\n" +
-                "  'warehouse'='hdfs://localhost:9000/user/hive/warehouse/iceberg/iceberg_db10',\n" +
-                "  'property-version'='1'\n" +
-                ")");
+        tableEnv.executeSql(String.format("drop table if exists %s.%s.%s", catalog, database, dstTableName));
+        tableEnv.executeSql(String.format("CREATE TABLE %s.%s.%s ( user_id int, f_random_str STRING) WITH ('connector' = 'filesystem', 'path' = '/home/james/temp/flink_data/iceberg_table_dst', 'format' = 'parquet')", catalog, database, dstTableName));
 
-        // change catalog
-        tableEnv.useCatalog("hadoop_catalog");
-        tableEnv.executeSql("CREATE DATABASE if not exists iceberg_hadoop_db");
-        tableEnv.useDatabase("iceberg_hadoop_db");
-        // create iceberg result table
-        tableEnv.executeSql("drop table if exists hadoop_catalog.iceberg_hadoop_db.iceberg_002");
-        tableEnv.executeSql("CREATE TABLE  hadoop_catalog.iceberg_hadoop_db.iceberg_002 (\n" +
-                "    userid int,\n" +
-                "    f_random_str STRING\n" +
-                ")");
+        tableEnv.executeSql(String.format("INSERT INTO %s select * from %s", dstTableName, srcTableName));
+        tableEnv.executeSql(String.format("select * from %s", dstTableName)).print();
 
 //        tableEnv.executeSql(
-//                "INSERT INTO  hadoop_catalog.iceberg_hadoop_db.iceberg_002 " +
-//                        " SELECT userid, f_random_str FROM hive_catalog.iceberg_db10.sample10");
-
-        tableEnv.executeSql(
-                "SELECT userid, f_random_str FROM hive_catalog.iceberg_db10.sample10").print();
-
-//        Configuration hadoopConf = new Configuration();
-//
-//        TableLoader tableLoader = TableLoader.fromHadoopTable("hdfs://localhost:9000/user/hive/warehouse/iceberg/iceberg_hadoop_db/iceberg_002", hadoopConf);
-//
-//        DataStream<RowData> stream = FlinkSource.forRowData()
-//                .env(env)
-//                .tableLoader(tableLoader)
-//                .streaming(true)
-//                .build();
-//
-//// Print all records to stdout.
-//        stream.print();
+//                String.format("SELECT user_id, f_random_str FROM %s.%s.%s", catalog, database, srcTableName)).print();
     }
-
-
 }
