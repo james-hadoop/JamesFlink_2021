@@ -23,8 +23,10 @@ public class FlinkTableWriteIcebergDemo {
         String database = "iceberg_db_20211018";
         String hiveConfDir = "/home/james/install/apache-hive-3.1.2-bin/conf";
 //        String hiveConfDir = "/home/james/install/hive-2.3.5/conf";
-        String srcTableName = "iceberg_table_src";
-        String dstTableName = "iceberg_table_dst";
+
+        String dataGenSourceTableName = "data_gen_source_table";
+        String icebergTableName = "iceberg_table";
+        String printSinkTableName = "print_sink_table";
 
         HiveCatalog hiveCatalog = new HiveCatalog(iceberg_catalog, null, hiveConfDir);
         tableEnv.registerCatalog(iceberg_catalog, hiveCatalog);
@@ -34,7 +36,7 @@ public class FlinkTableWriteIcebergDemo {
         tableEnv.useDatabase(database);
 
 
-        String createDataGenSrcTableSql = GlobalSql.generateDataGenSrcTableSql(iceberg_catalog, database, srcTableName);
+        String createDataGenSrcTableSql = GlobalSql.generateDataGenSourceTableSql(iceberg_catalog, database, dataGenSourceTableName);
         JamesUtil.printDivider("createDataGenSrcTableSql");
         System.out.println(String.format("createDataGenSrcTableSql: %s", createDataGenSrcTableSql));
         tableEnv.executeSql(createDataGenSrcTableSql);
@@ -47,22 +49,35 @@ public class FlinkTableWriteIcebergDemo {
 
 
         /*
-         * 创建 Iceberg 目标表
+         * 创建 Iceberg 表
          */
-        tableEnv.executeSql(String.format("drop table if exists %s.%s.%s", iceberg_catalog, database, dstTableName));
+        tableEnv.executeSql(String.format("drop table if exists %s.%s.%s", iceberg_catalog, database, icebergTableName));
 
 
-        String createIcebergTableSql = String.format("CREATE TABLE %s.%s.%s ( user_id int, f_random_str STRING) WITH ('connector' = 'iceberg', 'write.format.default' = 'ORC')", iceberg_catalog, database, dstTableName);
+        String createIcebergTableSql = String.format("CREATE TABLE %s.%s.%s ( user_id int, f_random_str STRING) WITH ('connector' = 'iceberg', 'write.format.default' = 'ORC')", iceberg_catalog, database, icebergTableName);
         JamesUtil.printDivider("createIceberTableSql");
         System.out.println(String.format("createIceberTableSql: %s", createIcebergTableSql));
         tableEnv.executeSql(createIcebergTableSql);
 
 
-        String insertSelectSql = String.format("INSERT INTO %s.%s.%s select * from %s", iceberg_catalog, database, dstTableName, srcTableName);
+        String insertSelectSql = String.format("INSERT INTO %s.%s.%s select * from %s", iceberg_catalog, database, icebergTableName, dataGenSourceTableName);
         JamesUtil.printDivider("insertSelectSql");
         System.out.println(String.format("insertSelectSql: %s", insertSelectSql));
-        // org.apache.flink.table.api.ValidationException: Unable to create a sink for writing table 'iceberg_catalog.iceberg_db_20211018.iceberg_table_dst'
+        // Could not find any factory for identifier 'iceberg' that implements 'org.apache.flink.table.factories.DynamicTableFactory' in the classpath
         tableEnv.executeSql(insertSelectSql);
-        tableEnv.executeSql(String.format("select * from %s", dstTableName)).print();
+
+
+        /*
+         * 创建 Print Sink 表
+         */
+        String createPrintSinkTableSql = GlobalSql.generatePrintSinkTableSql(iceberg_catalog, database, printSinkTableName);
+        JamesUtil.printDivider("createPrintSinkTableSql");
+        System.out.println(String.format("createPrintSinkTableSql: %s", createPrintSinkTableSql));
+        tableEnv.executeSql(createPrintSinkTableSql);
+
+        String insertIntoSinkTableSql = String.format("INSERT INTO %s.%s.%s select * from %s", iceberg_catalog, database, printSinkTableName, icebergTableName);
+        JamesUtil.printDivider("insertIntoSinkTableSql");
+        System.out.println(String.format("insertIntoSinkTableSql: %s", insertIntoSinkTableSql));
+        tableEnv.executeSql(insertIntoSinkTableSql);
     }
 }
