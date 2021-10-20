@@ -32,18 +32,21 @@ public class FlinkTableWriteIcebergDemo {
         tableEnv.registerCatalog(iceberg_catalog, hiveCatalog);
 
         tableEnv.useCatalog(iceberg_catalog);
-        tableEnv.executeSql("CREATE DATABASE if not exists " + database);
+        tableEnv.executeSql("CREATE DATABASE IF NOT EXISTS " + database);
         tableEnv.useDatabase(database);
 
 
+        /*
+         * 创建 data gen source table
+         */
         String createDataGenSrcTableSql = GlobalSql.generateDataGenSourceTableSql(iceberg_catalog, database, dataGenSourceTableName);
         JamesUtil.printDivider("createDataGenSrcTableSql");
         System.out.println(String.format("createDataGenSrcTableSql: %s", createDataGenSrcTableSql));
         tableEnv.executeSql(createDataGenSrcTableSql);
 
-        /*
-         * 打印自动生成源表的数据，验证时局是否自动生成
-         */
+//        /*
+//         * 打印自动生成源表的数据，验证时局是否自动生成
+//         */
 //        tableEnv.executeSql(
 //                String.format("SELECT user_id, f_random_str FROM %s.%s.%s", iceberg_catalog, database, srcTableName)).print();
 
@@ -51,7 +54,7 @@ public class FlinkTableWriteIcebergDemo {
         /*
          * 创建 Iceberg 表
          */
-        tableEnv.executeSql(String.format("drop table if exists %s.%s.%s", iceberg_catalog, database, icebergTableName));
+        tableEnv.executeSql(String.format("DROP TABLE IF EXISTS %s.%s.%s", iceberg_catalog, database, icebergTableName));
 
 
         String createIcebergTableSql = String.format("CREATE TABLE %s.%s.%s ( user_id int, f_random_str STRING) WITH ('connector' = 'iceberg', 'write.format.default' = 'ORC')", iceberg_catalog, database, icebergTableName);
@@ -75,7 +78,7 @@ public class FlinkTableWriteIcebergDemo {
         System.out.println(String.format("createPrintSinkTableSql: %s", createPrintSinkTableSql));
         tableEnv.executeSql(createPrintSinkTableSql);
 
-        String insertIntoSinkTableSql = String.format("INSERT INTO %s.%s.%s select * from %s", iceberg_catalog, database, printSinkTableName, icebergTableName);
+        String insertIntoSinkTableSql = String.format("INSERT INTO %s.%s.%s select * from %s", iceberg_catalog, database, printSinkTableName, dataGenSourceTableName);
         JamesUtil.printDivider("insertIntoSinkTableSql");
         System.out.println(String.format("insertIntoSinkTableSql: %s", insertIntoSinkTableSql));
         tableEnv.executeSql(insertIntoSinkTableSql);

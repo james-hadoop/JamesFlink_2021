@@ -603,3 +603,5 @@ public class FlinkTableReadAndWriteSample {
 [flink-1.12.0 upsert-kafka connector demo 原创 Flink菜](https://blog.51cto.com/u_15057813/2621493)
 
 [使用了flink官方示例，尽然提交任务后报错了](https://blog.csdn.net/github_56967035/article/details/118250981)
+
+[nfflink-connector-iceberg](https://github.com/Netflix-Skunkworks/nfflink-connector-iceberg)

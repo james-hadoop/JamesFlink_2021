@@ -11,7 +11,7 @@ public class GlobalSql {
      * @return
      */
     public static String generateDataGenSourceTableSql(String catalog, String database, String tableName) {
-        System.out.println(String.format("generateDataGenSourceTableSql() called, catalog=%s, database=%s, tableName=%s", catalog, database, tableName));
+        System.out.println(String.format("generateDataGenSourceTableSql() called: catalog=%s, database=%s, tableName=%s", catalog, database, tableName));
 
         return "CREATE TABLE IF NOT EXISTS " + catalog + "." + database + "." + tableName + " (\n" +
                 " user_id int,\n" +
@@ -33,7 +33,7 @@ public class GlobalSql {
      * @return
      */
     public static String generatePrintSinkTableSql(String catalog, String database, String tableName) {
-        System.out.println(String.format("generateDataGenSourceTableSql() called, catalog=%s, database=%s, tableName=%s", catalog, database, tableName));
+        System.out.println(String.format("generatePrintSinkTableSql() called: catalog=%s, database=%s, tableName=%s", catalog, database, tableName));
 
         return "CREATE TABLE IF NOT EXISTS " + catalog + "." + database + "." + tableName + " (\n" +
                 " user_id int,\n" +
